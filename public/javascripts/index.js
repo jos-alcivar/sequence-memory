@@ -1,6 +1,6 @@
 'use strict'
 
-let level = 0;
+let level = 1;
 let score = 0;
 let i = 0;
 let bananas = 3;
@@ -35,7 +35,6 @@ function generateRandomNumbers(arrayLength) {
 
 // Modify the random array length by level
 let randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
-console.log('random array generated ' + randomArray);
 
 // Display random array in the grid 
 function populateGrid(randomArray) {
@@ -59,20 +58,13 @@ classGrid.forEach((item, index) => {
         // Check answers        
         let item_id = Number(item.id.split("-").pop());
         userSequence.push(item_id);
-        console.log('user guesses ' + userSequence);
-        checkAnswer(item_id);
+        checkAnswer(item_id, item);
         
         if (i === randomArray.length) {
-            console.log('ready for next level')
-            clearNumbers(itemSequence);
             sequenceLength++;
             level++;
-            i = 0;
-            itemSequence = [];
-            userSequence = [];
-            randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
-            console.log('new random array generated ' + randomArray);
-            populateGrid(randomArray);
+            console.log(`You passed to level ${level}`)
+            restartGame();
         }
 
     })
@@ -96,14 +88,13 @@ function clearNumbers(itemSequence) {
 }
 
 // Check answer
-function checkAnswer(item_id) {
+function checkAnswer(item_id, item) {
     // Increase score if guess is right
     if ( item_id === randomArray[i]) {
-        console.log(userSequence[i]);
-        console.log(randomArray[i]);
         i++;
         score++;
-        idScore.textContent = `${score}`;
+        item.classList.remove('display__numbers', 'hide__numbers');
+        idScore.textContent = `${formatToThreeDigits(score)}`;
     } else {
         // Reduce bananas if guess is wrong
         if (bananas > 1) {
@@ -117,22 +108,34 @@ function checkAnswer(item_id) {
         if (lifes.length > 0) {
             idLives.textContent = lifes;
         } else {
-            idLives.textContent = "Game over";
+            idLives.textContent = "Game over!";
+            sequenceLength = 2;
+            level = 1;
+            console.log(`Starting again at level ${level}`)
+            restartGame(true);
         }
-    } 
-    
+    }    
 }
 
 // Restart game
-function restartGame() {
+function restartGame(restartScore) {
     clearNumbers(itemSequence);
-    sequenceLength++;
-    level++;
     i = 0;
     itemSequence = [];
     userSequence = [];
     randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
-    console.log('new random array generated ' + randomArray);
     populateGrid(randomArray);
+
+    if (restartScore) {
+        score = 0;
+        lifes = "🍌🍌🍌";
+        idLives.textContent = lifes;
+        idScore.textContent = '---';
+    }
+}
+
+// Function to format the number to always have 3 digits
+function formatToThreeDigits(number) {
+    return number.toString().padStart(3, '0');
 }
 
