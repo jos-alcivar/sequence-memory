@@ -7,7 +7,7 @@ let bananas = 3;
 let lifes = "🍌🍌🍌";
 let itemSequence = [];
 let userSequence = [];
-let sequenceLength = 2;
+let sequenceLength = 1;
 const durationArray = [1250, 650, 430, 210];
 
 // Define DOM variables
@@ -109,8 +109,6 @@ function checkAnswer(item_id, item) {
             idLives.textContent = lifes;
         } else {
             idLives.textContent = "Game over!";
-            sequenceLength = 2;
-            level = 1;
             console.log(`Starting again at level ${level}`)
             restartGame(true);
         }
@@ -127,6 +125,8 @@ function restartGame(restartScore) {
     populateGrid(randomArray);
 
     if (restartScore) {
+        sequenceLength = 1;
+        level = 1;
         score = 0;
         lifes = "🍌🍌🍌";
         idLives.textContent = lifes;

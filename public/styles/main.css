@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #ffffff;
-    --secondary-color: #fafaff;
+    --primary-color: #a2a9c1;
+    --secondary-color: #c9cfdf;
     --secondary-color-2: #ffffff;
-    --accent-color: #8c5ec3;
+    --accent-color: #232323;
     --shadow-color: rgba(140, 94, 195, 0.15);
-    --font-family-primary: Lobster, sans-serif;
-    --font-family-secondary: Barlow Condensed, sans-serif;
+    --font-family-primary: "Barlow", sans-serif;
+    --font-family-secondary: "Abel", sans-serif;
     --grid-item-size: 80px;
   }
 
@@ -21,7 +21,7 @@ body {
 }
 
 .ctn__main {
-    background-color: aqua;
+    /* background: linear-gradient(0deg, var(--secondary-color) 0%,var(--secondary-color-2) 100%); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,19 +29,24 @@ body {
 }
 
 .ctn__main__title {
-    background-color: beige;
+    background-color: var(--secondary-color);
+    backdrop-filter: blur(10px);
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 3rem;
     text-align: center;
     font-family: var(--font-family-primary);
+    color: white;
+    border-radius: 12px;
+    line-height: 1.5;
+    filter: drop-shadow(0 0 0.75rem var(--shadow-color));
 }
 
 .ctn__main__screen {
-    background-color: rgb(29, 29, 29);
+    background-color: var(--accent-color);
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(8, var(--grid-item-size));
@@ -56,14 +61,14 @@ body {
 }
 
 .grid__item {
-    border-color: black;
-    border-width: 1px;
-    border-style: dotted;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-family: var(--font-family-secondary);
+    filter: drop-shadow(0 0 0.05rem white);
 }
 
 .ctn__main__panel {
-    background-color: beige;
+    backdrop-filter: blur(10px);
+    background-color: var(--secondary-color);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -71,22 +76,46 @@ body {
     margin-bottom: 2rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-radius: 12px;
     font-size: 2rem;
     text-align: center;
-    font-family: var(--font-family-primary);
+    font-family: var(--font-family-secondary);
 }
 
 .ctn__main__instructions {
-    background-color: beige;
+    backdrop-filter: blur(10px);
+    background-color: var(--secondary-color);
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    border-radius: 12px;
     font-size: 1rem;
     text-align: center;
     font-family: var(--font-family-primary);
 }
+
+.panel__bananas {
+    background-color:var(--primary-color);
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    border-radius: 12px;
+    text-align: left;
+    line-height: 1.5;
+    filter: drop-shadow(0 0 0.75rem var(--shadow-color));
+}
+
+.panel__score {
+    background-color:var(--primary-color);
+    width: 5rem;
+    margin: 0.5rem 1rem;
+    border-radius: 12px;
+    line-height: 1.5;
+    filter: drop-shadow(0 0 0.75rem var(--shadow-color));
+}
+
+
 
 .display__numbers {
     color: white;
