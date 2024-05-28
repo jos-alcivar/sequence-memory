@@ -4,13 +4,18 @@ let level = 0;
 let score = 0;
 let i = 0;
 let bananas = 3;
+let lifes = "🍌🍌🍌";
 let itemSequence = [];
 let userSequence = [];
 let sequenceLength = 2;
 const durationArray = [1250, 650, 430, 210];
 
-// Select all the grid items
-const grid = document.querySelectorAll('.grid__item');
+// Define DOM variables
+const classGrid = document.querySelectorAll('.grid__item');
+const idScore = document.querySelector('#score');
+const idLives = document.querySelector('#lives');
+
+idLives.textContent = lifes;
 
 // Generate an array with random numbers
 function generateRandomNumbers(arrayLength) {
@@ -29,18 +34,21 @@ function generateRandomNumbers(arrayLength) {
 }
 
 // Modify the random array length by level
-let randomArray = generateRandomNumbers(grid.length).slice(0, sequenceLength);
-console.log(randomArray);
+let randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
+console.log('random array generated ' + randomArray);
 
 // Display random array in the grid 
-randomArray.forEach((number, index) => {
-    grid[number - 1].textContent = `${index + 1}`;
-    grid[number - 1].classList.add('display__numbers');
-    itemSequence.push(grid[number - 1]);
-});
+function populateGrid(randomArray) {
+    randomArray.forEach((number, index) => {
+        classGrid[number - 1].textContent = `${index + 1}`;
+        classGrid[number - 1].classList.add('display__numbers');
+        itemSequence.push(classGrid[number - 1]);
+    });
+}
+populateGrid(randomArray);
 
 // Add Click event on all the grid items
-grid.forEach((item, index) => {
+classGrid.forEach((item, index) => {
     item.addEventListener('click', function(){
         
         // Check for the first click to hide the numbers
@@ -48,31 +56,42 @@ grid.forEach((item, index) => {
             setTimeout(hideNumbers(itemSequence), durationArray[0]);
         }
         
-        // Check answers
-        
+        // Check answers        
         let item_id = Number(item.id.split("-").pop());
         userSequence.push(item_id);
-        console.log(userSequence);
+        console.log('user guesses ' + userSequence);
         checkAnswer(item_id);
         
         if (i === randomArray.length) {
             console.log('ready for next level')
+            clearNumbers(itemSequence);
             sequenceLength++;
             level++;
             i = 0;
             itemSequence = [];
             userSequence = [];
+            randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
+            console.log('new random array generated ' + randomArray);
+            populateGrid(randomArray);
         }
 
     })
 });
 
 
-// Hide numbers from the grid
+// Hide numbers on the grid
 function hideNumbers(itemSequence) {
     itemSequence.forEach((item) => {
         item.textContent = '';
         item.classList.replace('display__numbers', 'hide__numbers');
+    })
+}
+
+// Remove numbers on the grid
+function clearNumbers(itemSequence) {
+    itemSequence.forEach((item) => {
+        item.textContent = '';
+        item.classList.remove('display__numbers', 'hide__numbers');
     })
 }
 
@@ -84,6 +103,7 @@ function checkAnswer(item_id) {
         console.log(randomArray[i]);
         i++;
         score++;
+        idScore.textContent = `${score}`;
     } else {
         // Reduce bananas if guess is wrong
         if (bananas > 1) {
@@ -92,14 +112,27 @@ function checkAnswer(item_id) {
             // Game Over
             console.log('You are out of bananas!');
         }
-    }
-    console.log('Score ' + score);
-    console.log('Bananas ' + bananas);
-    console.log('i ' + i);
-    
+
+        lifes = lifes.slice(0, -2);
+        if (lifes.length > 0) {
+            idLives.textContent = lifes;
+        } else {
+            idLives.textContent = "Game over";
+        }
+    } 
     
 }
 
-console.log(userSequence);
-console.log(randomArray);
+// Restart game
+function restartGame() {
+    clearNumbers(itemSequence);
+    sequenceLength++;
+    level++;
+    i = 0;
+    itemSequence = [];
+    userSequence = [];
+    randomArray = generateRandomNumbers(classGrid.length).slice(0, sequenceLength);
+    console.log('new random array generated ' + randomArray);
+    populateGrid(randomArray);
+}
 
