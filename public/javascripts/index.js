@@ -9,6 +9,9 @@ let itemSequence = [];
 let userSequence = [];
 let sequenceLength = 1;
 const durationArray = [1250, 650, 430, 210];
+const correctSound = new Audio(`./assets/sounds/correctSound.wav`);
+const errorSound = new Audio(`./assets/sounds/errorSound.wav`);
+const gameOverSound = new Audio(`./assets/sounds/chimpSound.mp3`)
 
 // Define DOM variables
 const classGrid = document.querySelectorAll('.grid__item');
@@ -93,10 +96,12 @@ function checkAnswer(item_id, item) {
     if ( item_id === randomArray[i]) {
         i++;
         score++;
+        correctSound.play();
         item.classList.remove('display__numbers', 'hide__numbers');
         idScore.textContent = `${formatToThreeDigits(score)}`;
     } else {
         // Reduce bananas if guess is wrong
+        errorSound.play()
         if (bananas > 1) {
             bananas--;
         } else {
@@ -110,6 +115,7 @@ function checkAnswer(item_id, item) {
         } else {
             idLives.textContent = "Game over!";
             console.log(`Starting again at level ${level}`)
+            sequenceLength = 1;
             restartGame(true);
         }
     }    
@@ -125,7 +131,6 @@ function restartGame(restartScore) {
     populateGrid(randomArray);
 
     if (restartScore) {
-        sequenceLength = 1;
         level = 1;
         score = 0;
         lifes = "🍌🍌🍌";
