@@ -1,0 +1,101 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #fafaff;
+    --secondary-color-2: #ffffff;
+    --accent-color: #8c5ec3;
+    --shadow-color: rgba(140, 94, 195, 0.15);
+    --font-family-primary: Lobster, sans-serif;
+    --font-family-secondary: Barlow Condensed, sans-serif;
+    --grid-item-size: 80px;
+  }
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.ctn__main {
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0rem 2rem;
+}
+
+.ctn__main__title {
+    background-color: beige;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    font-family: var(--font-family-primary);
+}
+
+.ctn__main__screen {
+    background-color: rgb(29, 29, 29);
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(8, var(--grid-item-size));
+    grid-template-rows: repeat(5, var(--grid-item-size));
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    border-radius: 12px;
+    border-color: antiquewhite;
+    border-style: double;
+    border-width: 5px;
+}
+
+.grid__item {
+    border-color: black;
+    border-width: 1px;
+    border-style: dotted;
+    border-radius: 5px;
+}
+
+.ctn__main__panel {
+    background-color: beige;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    font-family: var(--font-family-primary);
+}
+
+.ctn__main__instructions {
+    background-color: beige;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-family: var(--font-family-primary);
+}
+
+.display__numbers {
+    color: white;
+    text-align: center;
+    font-size: 5rem;
+    line-height: 1;
+}
+
+.hide__numbers {
+    background-color: white;
+    border-style: none;
+}
