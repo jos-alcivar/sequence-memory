@@ -193,6 +193,20 @@ body {
                 margin: 0;
                 padding: 0;
                 border-style: none;
+                border-radius: 6px;
+            }
+            .form__inputScore {
+                background-color: white;
+                width: 50%;
+                height: 4rem;
+                font-family: var(--font-family-secondary);
+                font-size: 2rem;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border-style: none;
+                border-radius: 6px;
+                line-height: 2;
             }
             .form__button {
                 width: 50%;
@@ -214,4 +228,8 @@ body {
             }
         }
     }
+}
+
+.display__popup {
+    visibility:visible;
 }

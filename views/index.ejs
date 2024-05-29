@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abel&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="./public/styles/main.css">
+    <link rel="stylesheet" href="./styles/main.css">
     <title>Sequence Memory</title>
 </head>
 <body class="background">
@@ -89,17 +89,19 @@
         </div>
         <div class="popup">
             <div class="popup__ctn">
-                <form class="popup__form" action="/score" method="post">
+                <form class="popup__form" id="form-main">
                     <div class="form__label">
                         <em>Insert Name:</em>
                     </div>
-                    <hr>  
-                    <input class="form__inputText" type="text" name="user" placeholder="CHIMPANZEE" maxlength="10" onkeydown="return /[a-zA-Z0-9_]/i.test(event.key)">
-                    <input class="form__button" type="submit" name="save" value="Save">
+                    <hr> 
+                    <div class="form__inputScore" id="form-score"></div>  
+                    <input class="form__inputText" id="form-text" type="text" name="user" placeholder="CHIMPANZEE" maxlength="10" onkeydown="return /[a-zA-Z0-9_]/i.test(event.key)">
+                    <button class="form__button" id="form-btn" type="submit">Save</button>
                 </form>
             </div>
         </div>
+        
     </div>
-<script src="./public/javascripts/index.js"></script>
+<script src="./javascripts/index.js"></script>
 </body>
 </html>

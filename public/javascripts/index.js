@@ -9,9 +9,9 @@ let itemSequence = [];
 let userSequence = [];
 let sequenceLength = 1;
 const durationArray = [1250, 650, 430, 210];
-const correctSound = new Audio(`./assets/sounds/correctSound.wav`);
-const errorSound = new Audio(`./assets/sounds/errorSound.wav`);
-const gameOverSound = new Audio(`./assets/sounds/chimpSound.mp3`)
+const correctSound = new Audio(`/assets/sounds/correctSound.wav`);
+const errorSound = new Audio(`/assets/sounds/errorSound.wav`);
+const gameOverSound = new Audio(`/assets/sounds/chimpSound.mp3`)
 
 // Define DOM variables
 const classGrid = document.querySelectorAll('.grid__item');
@@ -105,7 +105,7 @@ function checkAnswer(item_id, item) {
         score++;
         correctSound.play();
         item.classList.remove('display__numbers', 'hide__numbers');
-        idScore.textContent = `${formatToThreeDigits(score)}`;
+        idScore.textContent = `${formatToThreeDigits(score)}`;        
     } else {
         // Reduce bananas if guess is wrong
         errorSound.play()
@@ -118,7 +118,7 @@ function checkAnswer(item_id, item) {
             gameOverSound.play();
             disableElements();
             sequenceLength = 1;
-            setTimeout(saveScore, 500);
+            setTimeout(saveScore(score), 500);
         }
     }    
 }
@@ -152,11 +152,47 @@ function enableElements() {
 function disableElements() {
     classGrid.forEach((item) => {
         item.classList.add('disabledElement');
-        console.log(item);
     });
 }
 
 // Call form to save score
-function saveScore(){
-    console.log('this took some time');
+function saveScore(score){
+    // Display pop up window
+    const userScore = `${formatToThreeDigits(score)}`;
+    document.getElementById('form-score').textContent = userScore;
+    document.querySelector('.popup').classList.add('display__popup');
+
+    // Add eventListener to submit btn
+    document.getElementById('form-main').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const user = document.getElementById('form-text').value;
+
+        // Check if user has filled the input text
+        if (user) {
+            const data = {
+                name: user,
+                score: userScore
+            }
+
+            // Create method and actions
+            fetch('/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        } else {
+            alert('Please write a name before submit!')
+        }
+    });
 }
