@@ -87,8 +87,19 @@
             </div>
     
         </div>
+        <div class="popup">
+            <div class="popup__ctn">
+                <form class="popup__form" action="/score" method="post">
+                    <div class="form__label">
+                        <em>Insert Name:</em>
+                    </div>
+                    <hr>  
+                    <input class="form__inputText" type="text" name="user" placeholder="CHIMPANZEE" maxlength="10" onkeydown="return /[a-zA-Z0-9_]/i.test(event.key)">
+                    <input class="form__button" type="submit" name="save" value="Save">
+                </form>
+            </div>
+        </div>
     </div>
-
 <script src="./public/javascripts/index.js"></script>
 </body>
 </html>

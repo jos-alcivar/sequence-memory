@@ -55,7 +55,7 @@ body {
     margin-bottom: 2rem;
     padding: 0.5rem;
     border-radius: 12px;
-    border-color: antiquewhite;
+    border-color: var(--shadow-color);
     border-style: double;
     border-width: 5px;
 }
@@ -114,6 +114,7 @@ body {
     border-radius: 12px;
     text-align: left;
     line-height: 1.5;
+    color: white;
     filter: drop-shadow(0 0 0.75rem var(--shadow-color));
 }
 
@@ -139,4 +140,78 @@ body {
 .hide__numbers {
     background-color: white;
     border-style: none;
+}
+
+.disabledElement {
+    pointer-events: none;
+}
+
+.popup {
+    background-color: var(--primary-color);
+    opacity: 98%;
+    border-radius: 12px;
+    z-index: 9;
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    visibility: hidden;
+
+    .popup__ctn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+        .popup__form {
+            background:var(--secondary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50%;
+            width: 20%;
+            border-radius: 12px;
+
+            .form__label {
+                width: 50%;
+                height: 4rem;
+                font-family: var(--font-family-primary);
+                font-size: 2rem;
+                text-align: left;
+                margin: 0;
+                padding: 0;
+
+            }
+            .form__inputText {
+                width: 50%;
+                height: 4rem;
+                font-family: var(--font-family-secondary);
+                font-size: 2rem;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border-style: none;
+            }
+            .form__button {
+                width: 50%;
+                height: 4rem;
+                font-family: var(--font-family-secondary);
+                font-size: 1rem;
+                margin: 0;
+                padding: 0;
+                border-radius: 6px;
+                border-style: none;
+                background-color: var(--accent-color);
+                color: white;
+            }
+            
+            hr {
+                width: 90%;
+                border-style: solid;
+                color: black;
+            }
+        }
+    }
 }

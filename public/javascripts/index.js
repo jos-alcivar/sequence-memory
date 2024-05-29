@@ -20,6 +20,11 @@ const idLives = document.querySelector('#lives');
 
 idLives.textContent = lifes;
 
+// Function to format the number to always have 3 digits
+function formatToThreeDigits(number) {
+    return number.toString().padStart(3, '0');
+}
+
 // Generate an array with random numbers
 function generateRandomNumbers(arrayLength) {
     var numbers = [];
@@ -50,7 +55,7 @@ function populateGrid(randomArray) {
 populateGrid(randomArray);
 
 // Add Click event on all the grid items
-classGrid.forEach((item, index) => {
+classGrid.forEach((item) => {
     item.addEventListener('click', function(){
         
         // Check for the first click to hide the numbers
@@ -64,7 +69,9 @@ classGrid.forEach((item, index) => {
         checkAnswer(item_id, item);
         
         if (i === randomArray.length) {
-            sequenceLength++;
+            if (sequenceLength <=8) {
+                sequenceLength++;
+            }
             level++;
             console.log(`You passed to level ${level}`)
             restartGame();
@@ -102,21 +109,16 @@ function checkAnswer(item_id, item) {
     } else {
         // Reduce bananas if guess is wrong
         errorSound.play()
-        if (bananas > 1) {
-            bananas--;
-        } else {
-            // Game Over
-            console.log('You are out of bananas!');
-        }
-
+        
         lifes = lifes.slice(0, -2);
         if (lifes.length > 0) {
             idLives.textContent = lifes;
         } else {
             idLives.textContent = "Game over!";
-            console.log(`Starting again at level ${level}`)
+            gameOverSound.play();
+            disableElements();
             sequenceLength = 1;
-            restartGame(true);
+            setTimeout(saveScore, 500);
         }
     }    
 }
@@ -139,8 +141,22 @@ function restartGame(restartScore) {
     }
 }
 
-// Function to format the number to always have 3 digits
-function formatToThreeDigits(number) {
-    return number.toString().padStart(3, '0');
+// Enable click events
+function enableElements() {
+    classGrid.forEach((item) => {
+        item.classList.remove('disableElements');
+    });
 }
 
+// Disable click events
+function disableElements() {
+    classGrid.forEach((item) => {
+        item.classList.add('disabledElement');
+        console.log(item);
+    });
+}
+
+// Call form to save score
+function saveScore(){
+    console.log('this took some time');
+}
