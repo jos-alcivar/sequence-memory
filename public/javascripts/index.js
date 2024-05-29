@@ -3,6 +3,7 @@
 let level = 1;
 let score = 0;
 let i = 0;
+let a = 0;
 let bananas = 3;
 let lifes = "🍌🍌🍌";
 let itemSequence = [];
@@ -62,9 +63,20 @@ populateGrid(randomArray);
 classGrid.forEach((item) => {
     item.addEventListener('click', function(){
         
+        // Check the level to decrease the duration
+        if (level <= 5) {
+            a = 0;
+        } else if (level <=10){
+            a = 1;
+        } else if (level <=15){
+            a = 2;
+        } else {
+            a = 3;
+        }
+
         // Check for the first click to hide the numbers
         if (userSequence.length === 0) {
-            setTimeout(hideNumbers(itemSequence), durationArray[0]);
+            setTimeout(hideNumbers(itemSequence), durationArray[a]);
         }
         
         // Check answers        
@@ -162,6 +174,8 @@ function disableElements() {
 // Call form to save score
 function saveScore(score){
     // Display pop up window
+    clearNumbers(itemSequence);
+    console.log(itemSequence);
     const userScore = `${formatToThreeDigits(score)}`;
     formScore.textContent = userScore;
     popup.classList.add('display__popup');

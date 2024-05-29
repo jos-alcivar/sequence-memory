@@ -57,8 +57,18 @@ app.post('/save', async (req, res) => {
 });
 
 // Display main page
-app.get('/', (req, res) => {
-    res.render('index');
+app.get('/', async (req, res) => {
+    try {
+        const data = await fs.readFile(path.join(__dirname, 'highScores.json'), 'utf-8');
+        let highScores = JSON.parse(data);
+
+        // Get the top 5 entries with highest scores
+        const topFive = highScores.sort((a, b) => b.score - a.score).slice(0, 5);
+        res.render('index', { scores: topFive });
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 //Listen to port

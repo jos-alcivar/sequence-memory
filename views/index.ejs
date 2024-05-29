@@ -15,7 +15,7 @@
     <div class="content">
         <div class="ctn__main">
             <div class="ctn__main__title">
-                Sequence Memory Game
+                SEQUENCE MEMORY GAME
             </div>
             <div class="ctn__main__screen">
                 <div class="grid__item" id="item-1"></div>
@@ -85,6 +85,21 @@
                     More info in this <a href="https://www.cell.com/current-biology/pdf/S0960-9822(07)02088-X.pdf">link.</a>
                 </div>
             </div>
+
+            <div class="ctn__main__scoretable">
+                <div class="__scoretable__panel">
+                    <div class="panel__row">                    
+                        <div class="panel__item item__label">NAME</div>
+                        <div class="panel__item item__label">SCORE</div>
+                    </div>
+                    <% scores.forEach((user, index) => { %>
+                        <div class="panel__row">
+                            <div class="panel__item item__data item__user" id="user-<%= index + 1%>"><%= user.name %></div>
+                            <div class="panel__item item__data" id="score-<%= index + 1%>"><%= user.score%></div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
     
         </div>
         <div class="popup">
@@ -107,6 +122,7 @@
         </div>
         
     </div>
+<%- include('./partials/footer') %>
 <script src="./javascripts/index.js"></script>
 </body>
 </html>
