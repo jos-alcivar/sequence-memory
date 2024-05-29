@@ -163,33 +163,38 @@ function saveScore(score){
     document.querySelector('.popup').classList.add('display__popup');
 
     // Add eventListener to submit btn
-    document.getElementById('form-main').addEventListener('submit', function(event) {
+    document.getElementById('form-main').addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const user = document.getElementById('form-text').value;
 
         // Check if user has filled the input text
         if (user) {
-            const data = {
+            const userData = {
                 name: user,
                 score: userScore
             }
 
             // Create method and actions
-            fetch('/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const response = await fetch('/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                const data = await response.json();
                 console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            } catch (error) {
+                console.log('Error:', error);
+            }
 
         } else {
             alert('Please write a name before submit!')
