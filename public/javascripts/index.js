@@ -17,6 +17,10 @@ const gameOverSound = new Audio(`/assets/sounds/chimpSound.mp3`)
 const classGrid = document.querySelectorAll('.grid__item');
 const idScore = document.querySelector('#score');
 const idLives = document.querySelector('#lives');
+const popup = document.querySelector('.popup');
+const formScore = document.getElementById('form-score');
+const formMain = document.getElementById('form-main');
+const formClose = document.getElementById('form-close');
 
 idLives.textContent = lifes;
 
@@ -80,7 +84,6 @@ classGrid.forEach((item) => {
     })
 });
 
-
 // Hide numbers on the grid
 function hideNumbers(itemSequence) {
     itemSequence.forEach((item) => {
@@ -138,13 +141,14 @@ function restartGame(restartScore) {
         lifes = "🍌🍌🍌";
         idLives.textContent = lifes;
         idScore.textContent = '---';
+        enableElements();
     }
 }
 
 // Enable click events
 function enableElements() {
     classGrid.forEach((item) => {
-        item.classList.remove('disableElements');
+        item.classList.remove('disabledElement');
     });
 }
 
@@ -159,11 +163,11 @@ function disableElements() {
 function saveScore(score){
     // Display pop up window
     const userScore = `${formatToThreeDigits(score)}`;
-    document.getElementById('form-score').textContent = userScore;
-    document.querySelector('.popup').classList.add('display__popup');
+    formScore.textContent = userScore;
+    popup.classList.add('display__popup');
 
     // Add eventListener to submit btn
-    document.getElementById('form-main').addEventListener('submit', async function(event) {
+    formMain.addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const user = document.getElementById('form-text').value;
@@ -195,9 +199,17 @@ function saveScore(score){
             } catch (error) {
                 console.log('Error:', error);
             }
+            // Reload page
+            location.reload();
 
         } else {
             alert('Please write a name before submit!')
         }
+    });
+
+    // Add eventListener to close btn
+    formClose.addEventListener('click', () => {
+        popup.classList.remove('display__popup');
+        restartGame(true);
     });
 }
